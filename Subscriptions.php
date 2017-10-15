@@ -27,7 +27,7 @@ if(!class_exists('StarMember')) {
       $this->member_email = get_userdata( $user_id )->user_email;
 
       $this->request_args = array(
-        'url' => $this->get_member_id_url . $this->member_email,
+        'url' => $this->get_member_id_url . urlencode($this->member_email),
         'method' => 'GET',
         'headers' => array(
             'Authorization' => 'Basic ' . base64_encode( $this->username.':'.$this->pwd )
@@ -38,18 +38,18 @@ if(!class_exists('StarMember')) {
 
       try {
         $this->member_response = $member_request->send();
+
+        if($this->member_response['response']['code'] === 200){
+          $this->member = json_decode(substr($this->member_response['body'],1,-1));
+        }
+        else{
+          echo 'Bad Request...Returned '.$this->member_response['status']['code'].'<br>';
+          $this->member = [];
+        }
       }
       catch (Exception $e) {
           echo 'Caught exception: ',  $e->getMessage(), "\n";
       }
-
-      if($this->member_response['response']['code'] === 200){
-        $this->member = json_decode(substr($this->member_response['body'],1,-1));
-      } else {
-        echo 'Bad Request...Returned '.$this->member_response['status']['code'].'<br>';
-        $this->member = [];
-      }
-
     }
 
     public function get_subscription_ids() {

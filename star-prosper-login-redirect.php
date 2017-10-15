@@ -12,6 +12,7 @@ License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 
 include_once(ABSPATH . 'wp-includes/pluggable.php');
 
+require_once( plugin_dir_path( __FILE__ ) . 'Config.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'Requests.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'Subscriptions.php');
 require_once( plugin_dir_path( __FILE__ ) . 'RedirectFactory.php');
@@ -27,9 +28,6 @@ if(!class_exists('StarProsperLoginRedirect')){
     public function __construct() {
 
       $this->user = wp_get_current_user();
-
-      $this->login_redirect();
-
     }
 
 
@@ -55,9 +53,8 @@ if(!class_exists('StarProsperLoginRedirect')){
       $redirects = new RedirectFactory();
       $redirect_url = $redirects->get_redirect_url_from_arr( $subscription_ids );
 
-      if(wp_redirect( $redirect_url )) {
-          exit;
-      }
+      wp_redirect( $redirect_url  );
+      die;
 
     }
 
@@ -65,10 +62,17 @@ if(!class_exists('StarProsperLoginRedirect')){
   }
 }
 
-add_action( 'plugins_loaded', 'StarProsperLoginRedirect_init' );
 function StarProsperLoginRedirect_init() {
-  $redirect = new StarProsperLoginRedirect();
-  add_action( 'init', array('redirect','login_redirect'));
+
+
+  $star_config = new StarConfig();
+
+  if(is_page( $star_config->show_on_pages )){
+    $star_redirect = new StarProsperLoginRedirect();
+    $star_redirect->login_redirect();
+  }
+
 }
+add_action( 'template_redirect', 'StarProsperLoginRedirect_init' );
 
 ?>

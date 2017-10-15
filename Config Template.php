@@ -6,7 +6,7 @@ if(!class_exists('StarConfig')){
 
     private $username;
     private $password;
-    private $get_member_id_url;
+    public $get_member_id_url;
     private $redirect_arr;
 
 
@@ -22,6 +22,10 @@ if(!class_exists('StarConfig')){
         2 => array( 'id' => 1235, 'url' => 'http://yourdomain.com/membership/'),
         3 => array( 'id' => 1236, 'url' => 'http://yourdomain.com/basic/'),
       );
+
+      $this->show_on_pages = [
+        //ids of pages to attempt redirect on
+      ];
     }
   }
 }
