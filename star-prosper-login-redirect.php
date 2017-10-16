@@ -36,7 +36,7 @@ if(!class_exists('StarProsperLoginRedirect')){
     	if ( ! isset( $this->user->ID ) ) {
         echo 'Couldnt get user ID...<br>';
         if(wp_redirect( home_url() )) {
-            exit;
+            die;
         }
       }
 
@@ -46,15 +46,20 @@ if(!class_exists('StarProsperLoginRedirect')){
 
       if(empty($subscription_ids)){
         if(wp_redirect( home_url() )) {
-            exit;
+            die;
         }
       }
 
       $redirects = new RedirectFactory();
       $redirect_url = $redirects->get_redirect_url_from_arr( $subscription_ids );
 
-      wp_redirect( $redirect_url  );
-      die;
+      if($redirect_url) {
+        wp_redirect( $redirect_url  );
+        die;
+      }
+
+      return;
+
 
     }
 

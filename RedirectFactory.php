@@ -28,29 +28,7 @@ if(!class_exists('RedirectFactory')){
           }
         }
       }
-
-      /*
-      //priority 1
-      foreach($redirect_id_arr as $redirect_id){
-        if($redirect_id === $page['id']) {
-          return $this->get_redirect_url_from_id( $redirect_id );
-        }
-      }
-
-      //priority 2
-      foreach($redirect_id_arr as $redirect_id){
-        if($redirect_id === 4246) {
-          return $this->get_redirect_url_from_id( $redirect_id );
-        }
-      }
-
-      //priority 3
-      foreach($redirect_id_arr as $redirect_id){
-        if($redirect_id === 6196) {
-          return $this->get_redirect_url_from_id( $redirect_id );
-        }
-      }
-      */
+      return 0;
     }
 
 
