@@ -26,6 +26,12 @@ if(!class_exists('StarConfig')){
       $this->show_on_pages = [
         //ids of pages to attempt redirect on
       ];
+
+      $this->special_case = [
+        'include' => '',
+        'exclude' => '',
+        'url' => '',
+      ];
     }
   }
 }

@@ -10,6 +10,7 @@ License:      GPL2
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 */
 
+
 include_once(ABSPATH . 'wp-includes/pluggable.php');
 
 require_once( plugin_dir_path( __FILE__ ) . 'Config.php' );
@@ -68,7 +69,6 @@ if(!class_exists('StarProsperLoginRedirect')){
 }
 
 function StarProsperLoginRedirect_init() {
-
 
   $star_config = new StarConfig();
 

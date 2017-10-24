@@ -16,10 +16,23 @@ if(!class_exists('RedirectFactory')){
       $this->config = new StarConfig();
 
       $this->redirect_arr = $this->config->redirect_arr;
+      $this->special_case = $this->config->special_case;
     }
 
 
     public function get_redirect_url_from_arr( $redirect_id_arr ) {
+
+      /*var_dump($this->special_case['exclude']);
+
+      var_dump($redirect_id_arr);
+
+      var_dump(( ! in_array($this->special_case['exclude'], $redirect_id_arr)));*/
+
+      foreach($redirect_id_arr as $id ){
+        if ( $this->special_case['include'] == $id && ( ! in_array($this->special_case['exclude'], $redirect_id_arr)) ) {
+          return $this->special_case['url'];
+        }
+      }
 
       foreach($this->redirect_arr as $page) {
         foreach($redirect_id_arr as $redirect_id){
